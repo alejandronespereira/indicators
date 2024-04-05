@@ -27,6 +27,9 @@ option(INDICATORS_DEMO "Build indicators demo" OFF)
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)
 
+# Ament required for ROS2 package export
+find_package(ament_cmake REQUIRED)
+
 find_package(Threads REQUIRED)
 
 add_library(indicators INTERFACE)
@@ -69,6 +72,11 @@ if(NOT INDICATORS_SUBPROJECT)
           DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
           USE_SOURCE_PERMISSIONS
           PATTERN "*.hpp")
+
+  install(DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/single_include/indicators
+          DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+          USE_SOURCE_PERMISSIONS
+          PATTERN "*.hpp")
   install(FILES LICENSE LICENSE.termcolor
           DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/licenses/indicators)
 
@@ -103,3 +111,12 @@ if(NOT INDICATORS_SUBPROJECT)
   set(CPACK_SOURCE_GENERATOR "TGZ;TXZ")
   include(CPack)
 endif()
+
+
+# Export header files in include
+ament_export_include_directories(include)
+
+# Export the single header file
+ament_export_include_directories(single_include)
+
+ament_package()
