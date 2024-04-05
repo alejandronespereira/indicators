@@ -1,4 +1,24 @@
 <p align="center">
+  <img height="70" src="img/ros2-logo.png"/>  
+</p>
+
+## About
+
+This is a fork over the great work of [indicators](https://github.com/p-ranav/indicators/blob/master) to be used with ament in the ROS2 environment.
+
+In order to use it from another colcon package follow these steps:
+- Make sure you are in the same workspace as the indicators package.
+- Add the dependency in the package.xml of your ROS2 package: `<depend>indicators</depend>`
+- Add the dependency in the CMakeLists.txt, by adding the following lines:
+```
+find_package(indicators REQUIRED)
+
+include_directories(${indicators_INCLUDE_DIRS})
+```
+You can now include the headers from your code to use progress bars. 
+
+
+<p align="center">
   <img height="70" src="img/logo.png"/>  
 </p>
 
