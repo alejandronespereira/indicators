@@ -114,8 +114,10 @@ endif()
 install(DIRECTORY include
   DESTINATION .
   )
-install(DIRECTORY single_include
-  DESTINATION .
+
+# copy the single include with the rest of the files in the ROS2 workspace
+install(DIRECTORY single_include/indicators
+  DESTINATION include
 )
 
 # Export header files in include
