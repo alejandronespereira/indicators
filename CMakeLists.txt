@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 
+project(indicators)
+
 if(DEFINED PROJECT_NAME)
   set(INDICATORS_SUBPROJECT ON)
 endif()
@@ -73,10 +75,6 @@ if(NOT INDICATORS_SUBPROJECT)
           USE_SOURCE_PERMISSIONS
           PATTERN "*.hpp")
 
-  install(DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/single_include/indicators
-          DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-          USE_SOURCE_PERMISSIONS
-          PATTERN "*.hpp")
   install(FILES LICENSE LICENSE.termcolor
           DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/licenses/indicators)
 
@@ -112,11 +110,21 @@ if(NOT INDICATORS_SUBPROJECT)
   include(CPack)
 endif()
 
+#ROS2 installation
+install(DIRECTORY include
+  DESTINATION .
+  )
+install(DIRECTORY single_include
+  DESTINATION .
+)
 
 # Export header files in include
 ament_export_include_directories(include)
 
 # Export the single header file
 ament_export_include_directories(single_include)
+
+ament_export_include_directories(${INCLUDE_DIRS})
+
 
 ament_package()
